@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
+  <head>
+    <title>Binance P2P Profit/Loss Calculator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+    	
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+      }
+
+      .header {
+        background-color: #4CAF50;
+        color: white;
+        text-align: center;
+        padding: 1em;
+      }
+
+      .footer {
+        background-color: #4CAF50;
+        color: white;
+        text-align: center;
+        padding: 1em;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+      }
+
+      form {
+        background-color: white;
+        padding: 2em;
+        border-radius: 1em;
+        box-shadow: 2px 2px 5px #888888;
+        margin: 2em auto;
+        max-width: 400px;
+      }
+
+      label {
+        font-weight: bold;
+        margin-right: 1em;
+      }
+
+      input[type="text"] {
+        padding: 0.5em;
+        border-radius: 0.5em;
+        border: 1px solid #ccc;
+        font-size: 1em;
+        width: 60%;
+        margin-bottom: 1em;
+      }
+
+      button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 0.5em 1em;
+        border-radius: 0.5em;
+        border: none;
+        font-size: 1em;
+        cursor: pointer;
+      }
+
+      #result {
+        text-align: center;
+        margin: 2em 0;
+        font-size: 1.5em;
+        font-weight: bold;
+      }
+
+      @media (max-width: 600px) {
+        form {
+          width: 90%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>Binance P2P Profit/Loss Calculator</h1>
+      <p>Easily calculate your p2p profits and losses</p>
+    </div>
+
+    <form>
+      <label for="amount">Amount of USDT:</label>
+      <input type="text" id="amount" name="amount" value="1">
+
+      <br>
+
+      <label for="buyRate">Buy Rate (Naira per USDT):</label>
+      <input type="text" id="buyRate" name="buyRate" value="750">
+
+      <br>
+
+      <label for="sellRate">Sell Rate (Naira per USDT):</label>
+      <input type="text" id="sellRate" name="sellRate" value="752">
+
+      <br>
+
+      <label for="fee">Binance p2p Fee (%):</label>
+      <input type="text" id="fee" name="fee" value="0.1">
+
+      <br>
+      <br>
+
+      <button id="calculate">Calculate</button>
+    </form>
+
+    <br>
+
+    <div id="result"></div>
+
+    <div class="footer">
+      <p> © 2023 YOU-SAIF </p>
+    </div>
+  </body>
+  <script>
+    const calculate = document.getElementById("calculate");
+const amount = document.getElementById("amount");
+const buyRate = document.getElementById("buyRate");
+const sellRate = document.getElementById("sellRate");
+const fee = document.getElementById("fee");
+const result = document.getElementById("result");
+
+calculate.addEventListener("click", (event) => {
+  event.preventDefault();
+  const buyCost = amount.value * buyRate.value;
+  const sellRevenue = amount.value * sellRate.value;
+  const feeAmount = (fee.value / 100) * sellRevenue;
+  const profitLoss = sellRevenue - buyCost - feeAmount;
+
+  if (profitLoss > 0) {
+    result.innerHTML = `Profit: ${profitLoss.toFixed(2)} Naira`;
+    result.style.color = "#4CAF50";
+  } else if (profitLoss < 0) {
+    result.innerHTML = `Loss: ${Math.abs(profitLoss).toFixed(2)} Naira`;
+    result.style.color = "#F44336";
+  } 
+});
+
+  </script>
+</html>
